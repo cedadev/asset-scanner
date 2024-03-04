@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building an Recipe &mdash; stac_generator  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Orientation" href="../stac_generator/user_guide/orientation.html" />
+    <link rel="prev" title="Recipes" href="recipes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> stac_generator
+            <img src="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_div/0.3.2/_assets/img/ceda_logo_transp_white_h80.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../stac_generator/index.html">STAC Generator</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="recipes.html">Recipes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Building an Recipe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#write-a-recipe">1. Write a recipe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-recipe-on-a-subset-of-data">2. Running the recipe on a subset of data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-configuration">Example configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#indexing-the-data">3. Indexing the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexing-the-full-dataset">4. Indexing the full dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#example-recipe">Example Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#recipe-sections">Recipe sections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stac_generator/user_guide/orientation.html">Orientation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/stac_generator/stac_generator.html">STAC Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">stac_generator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="recipes.html">Recipes</a> &raquo;</li>
+      <li>Building an Recipe</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/recipes/building_a_workflow.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="building-an-recipe">
+<h1>Building an Recipe<a class="headerlink" href="#building-an-recipe" title="Permalink to this headline"></a></h1>
+<dl class="simple">
+<dt>Building an STAC catalog workflow consists of 4 mains steps:</dt><dd><ol class="arabic simple">
+<li><p>Write a <span class="xref std std-ref">recipe</span> file for each STAC level to describe the workflow</p></li>
+<li><p>Test the workflow on a subset of data</p></li>
+<li><p>Index that subset of data to check it works as expected</p></li>
+<li><p>Index full dataset</p></li>
+</ol>
+</dd>
+</dl>
+<p>Parts 1 and 2 will likely go round in a loop, whilst you are developing the
+workflow file, with several iterations until you are happy.</p>
+<div class="section" id="write-a-recipe">
+<h2>1. Write a recipe<a class="headerlink" href="#write-a-recipe" title="Permalink to this headline"></a></h2>
+<dl class="simple">
+<dt>A basic recipe consists of up to 5 sections:</dt><dd><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">paths</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extraction_methods</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">member_of</span></code></p></li>
+</ol>
+</dd>
+</dl>
+<p>An example recipe can be found <a class="reference internal" href="recipes.html#example-recipe"><span class="std std-ref">here</span></a></p>
+<p>The extraction methods section describes how the facets are extracted from the data.</p>
+<p>To check your recipe works as expected, you will need to run it.</p>
+</div>
+<div class="section" id="running-the-recipe-on-a-subset-of-data">
+<h2>2. Running the recipe on a subset of data<a class="headerlink" href="#running-the-recipe-on-a-subset-of-data" title="Permalink to this headline"></a></h2>
+<p>To run your workflow, you will need to create a config file.
+This will define an input path and output to standard out.</p>
+<div class="section" id="example-configuration">
+<h3>Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">recipes_root</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/recipes</span>
+<span class="nt">inputs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file_system</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/badc/faam/data/2005/b069-jan-05</span>
+<span class="nt">outputs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">standard_out</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>You should choose a filepath with a relatively small number of files to
+make iteration quick and allow you to make tweaks.</p>
+<p>You can then run your workflow using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">stac_generator</span> <span class="pre">-c</span> <span class="pre">&lt;path_to_config_file&gt;</span></code></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+  File &quot;/usr/local/bin/stac_generator&quot;, line 5, in &lt;module&gt;
+    from stac_generator.scripts.stac_generator import main
+  File &quot;/usr/local/lib/python3.8/site-packages/stac_generator/scripts/stac_generator.py&quot;, line 14, in &lt;module&gt;
+    import click
+ModuleNotFoundError: No module named &#39;click&#39;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is likely that this will be an iterative process to make sure that the correct
+facets are extracted and the output is as desired.</p>
+</div>
+</div>
+</div>
+<div class="section" id="indexing-the-data">
+<h2>3. Indexing the data<a class="headerlink" href="#indexing-the-data" title="Permalink to this headline"></a></h2>
+<p>This step is as simple as changing your output plugin to point to the final destination.</p>
+<p>Here is an example for the stac-fastapi output making use of additional kwargs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">stac_fastapi</span>
+  <span class="n">api_url</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">API_URL</span><span class="o">&gt;</span>
+  <span class="n">verify</span><span class="p">:</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>Once this works as expected…</p>
+</div>
+<div class="section" id="indexing-the-full-dataset">
+<h2>4. Indexing the full dataset<a class="headerlink" href="#indexing-the-full-dataset" title="Permalink to this headline"></a></h2>
+<p>This is done by increasing the scope of the input plugin.
+In the example we used the path <code class="docutils literal notranslate"><span class="pre">/badc/faam/data/2005/b069-jan-05</span></code>. If our
+description file covered <code class="docutils literal notranslate"><span class="pre">/badc/faam/data</span></code> we could now expand our input to cover
+<code class="docutils literal notranslate"><span class="pre">/badc/faam/data</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The higher up the tree you put the input, the longer it will take. You might
+wish to consider splitting the run into smaller segments and running in parallel.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="recipes.html" class="btn btn-neutral float-left" title="Recipes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../stac_generator/user_guide/orientation.html" class="btn btn-neutral float-right" title="Orientation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Richard Smith.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

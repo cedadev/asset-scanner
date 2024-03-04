@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipes &mdash; stac_generator  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building an Recipe" href="building_a_workflow.html" />
+    <link rel="prev" title="Genertators" href="../stac_generator/generators.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> stac_generator
+            <img src="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_div/0.3.2/_assets/img/ceda_logo_transp_white_h80.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../stac_generator/index.html">STAC Generator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Recipes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building_a_workflow.html">Building an Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-recipe">Example Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recipe-sections">Recipe sections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#paths">Paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type">Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id">ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extraction-methods">Extraction Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#member-of">Member Of</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#schema">Schema</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stac_generator/user_guide/orientation.html">Orientation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/stac_generator/stac_generator.html">STAC Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">stac_generator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Recipes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/recipes/recipes.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="recipes">
+<h1>Recipes<a class="headerlink" href="#recipes" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>These documents describe how to process the files within a dataset and extract facets.
+These documents are aggregated along the branch with the information lower in the tree taking
+precendence.
+Having multiple files at different points in the tree allow for a narrowing of information.
+i.e. A default set at a higher level, if not overwritten, will exist at all points down the tree.</p>
+<div class="section" id="example-recipe">
+<h2>Example Recipe<a class="headerlink" href="#example-recipe" title="Permalink to this headline"></a></h2>
+<p>This file applies to all files listed under: <code class="docutils literal notranslate"><span class="pre">/badc/faam/data</span></code>.</p>
+<p>It uses the regex processor to match a regex pattern to
+extract a date. This is then passed to the ISO Date post-processor which converts
+the date into the ISO8601 format.</p>
+<p>The second, extracts platform and flight number from the filepath.
+No pre or post processing is done in this case.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">paths</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/badc/faam/data</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">item</span>
+<span class="nt">extraction_methods</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;^(?:[^_]*_){2}(?P&lt;datetime&gt;\d*)&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="recipe-sections">
+<h2>Recipe sections<a class="headerlink" href="#recipe-sections" title="Permalink to this headline"></a></h2>
+<p>The description file consists of 5 top level keys:</p>
+<p>A <a class="reference internal" href="#schema"><span class="std std-ref">Full JSON Schema</span></a> references below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">paths</span></code></p></td>
+<td><p>list[str]</p></td>
+<td><p>List of paths this workflow applies to.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>str</p></td>
+<td><p>Defines the extraction methods to create the assets matching the given path.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p>list[<span class="xref std std-ref">Extraction Methods</span>]</p></td>
+<td><p>Defines the ID of the STAC record runs after extraction methods.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extraction_methods</span></code></p></td>
+<td><p>list[<span class="xref std std-ref">Extraction Methods</span>]</p></td>
+<td><p>Defines the extraction methods to generate the metadata for the STAC record.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">member_of</span></code></p></td>
+<td><p>list[str]</p></td>
+<td><p>Defines the recipers for the Collections the generated Item or Collection is a member of.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="paths">
+<h3>Paths<a class="headerlink" href="#paths" title="Permalink to this headline"></a></h3>
+<p>Describes the paths where this file applies. Can be multiple locations.
+The path references all points below it in the hierarchy.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">paths</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/badc/faam/data</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="type">
+<h3>Type<a class="headerlink" href="#type" title="Permalink to this headline"></a></h3>
+<p>Defines the tyoe of STAC record to create.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">item</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id">
+<h3>ID<a class="headerlink" href="#id" title="Permalink to this headline"></a></h3>
+<p>Defines a list of extraction methods used to generate the record’s ID.
+This is run after the extraction methods.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span>
+  <span class="c1"># Use directory name ID</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">defaults</span><span class="p">:</span>
+        <span class="nt">item_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$instance_id</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extraction-methods">
+<h3>Extraction Methods<a class="headerlink" href="#extraction-methods" title="Permalink to this headline"></a></h3>
+<p>Defines a list of extraction methods used to generate the record’s metadata.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">extraction_methods</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lambda</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">function</span><span class="p">:</span> <span class="s">&#39;lambda</span><span class="nv"> </span><span class="s">uri:</span><span class="nv"> </span><span class="s">uri.replace(&quot;/badc/cmip6/data&quot;,</span><span class="nv"> </span><span class="s">&quot;&quot;).strip(&quot;/&quot;).replace(&quot;/&quot;,</span><span class="nv"> </span><span class="s">&quot;.&quot;)&#39;</span>
+      <span class="nt">input_args</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$uri</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">instance_id</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="member-of">
+<h3>Member Of<a class="headerlink" href="#member-of" title="Permalink to this headline"></a></h3>
+<p>Defines a list of paths to recipes that this record is a member of.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">member_of</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">recipes/collection/cmip6.yaml</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="schema">
+<h3>Schema<a class="headerlink" href="#schema" title="Permalink to this headline"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/usr/local/lib/python3.8/site-packages/stac_generator/core/baker.py&quot;, line 25, in &lt;module&gt;
+    import yaml
+ModuleNotFoundError: No module named &#39;yaml&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../stac_generator/generators.html" class="btn btn-neutral float-left" title="Genertators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="building_a_workflow.html" class="btn btn-neutral float-right" title="Building an Recipe" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Richard Smith.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

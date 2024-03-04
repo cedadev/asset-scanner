@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orientation &mdash; stac_generator  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="STAC Generator" href="../../api/stac_generator/stac_generator.html" />
+    <link rel="prev" title="Building an Recipe" href="../../recipes/building_a_workflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> stac_generator
+            <img src="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_div/0.3.2/_assets/img/ceda_logo_transp_white_h80.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">STAC Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recipes/recipes.html">Recipes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Orientation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/stac_generator/stac_generator.html">STAC Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">stac_generator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Orientation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/stac_generator/user_guide/orientation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="orientation">
+<h1>Orientation<a class="headerlink" href="#orientation" title="Permalink to this headline"></a></h1>
+<p>The <a class="reference internal" href="../../index.html#stac-generator"><span class="std std-ref">STAC Generator</span></a> is a framework for generating
+STAC catalogs and is built to be modular and extensible. This can be confusing
+for new users but this guide aims to act as an orientation to help new users
+understand what this package can do and how the pieces fit together.</p>
+<dl class="simple">
+<dt>There are various pluggable pieces:</dt><dd><ul class="simple">
+<li><p>Inputs</p></li>
+<li><p>Outputs</p></li>
+<li><p>Extraction Methods</p></li>
+<li><p>Mappings</p></li>
+</ul>
+</dd>
+</dl>
+<p>These pieces should allow you to construct a workflow which works for your use case and provide
+python entry points to allow you to write your own plugins.
+The STAC Generator package stores some <a class="reference internal" href="../inputs.html#module-stac_generator.plugins.inputs"><span class="std std-ref">inputs</span></a> which can be used to read from a range of different
+sources messages of STAC objects to genertate.
+The <a class="reference internal" href="../generators.html#item-generator"><span class="std std-ref">item</span></a>, and <a class="reference internal" href="../generators.html#collection-generator"><span class="std std-ref">collection</span></a>
+generators take these messages and extract the required facets to buil the relevant STAC object using a variety of <a class="reference internal" href="../extraction_methods.html#extraction-methods"><span class="std std-ref">extraction methods</span></a>.
+These generated objects can then be passed to a range of <a class="reference internal" href="../outputs.html#module-stac_generator.plugins.outputs"><span class="std std-ref">outputs</span></a>.</p>
+<p>The generators have two levels of configuration. Global configuration, passed at the command line on
+invocation, which defines the inputs, ouputs, logging etc.</p>
+<p>An example can be found <a class="reference internal" href="../index.html#sample-configuration"><span class="std std-ref">here</span></a>.</p>
+<p>The second level of configuration comes in the form of recipes. These YAML files
+describe the workflow for extracting facets and other metadata to build the items and collections of the STAC Catalog.
+Background for recipes can be found <a class="reference external" href="recipes/recipes:Recipes">here</a>
+and a guide for how to build, and test these files is <a class="reference internal" href="../../recipes/building_a_workflow.html#building-an-recipe"><span class="std std-ref">here</span></a>.</p>
+<p>The different available extraction methods which can construct these workflows are found <a class="reference internal" href="../extraction_methods.html#extraction-methods"><span class="std std-ref">here</span></a>.</p>
+<p>The <a class="reference external" href="https://github.com/cedadev/stac-recipes">CEDA repository containing these recipes</a> can
+be used as an example. An example which includes extracting metadata from the NetCDF header is
+<a class="reference external" href="https://github.com/cedadev/stac-recipes/blob/master/descriptions/neodc/sentinel/sentinel5.yml">sentinel5</a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">paths</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/neodc/sentinel_ard/data/sentinel_2</span>
+
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">item</span>
+
+<span class="c1"># This will be run over the meta files, example: neodc/sentinel_ard/data/sentinel_2/2018/07/05/S2A_20180705_lat57lon375_T30VVJ_ORB123_utm30n_osgb_vmsk_sharp_rad_srefdem_stdsref_meta.xml</span>
+<span class="nt">id</span><span class="p">:</span>
+  <span class="c1"># Use full path minus the extension for ID</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">defaults</span><span class="p">:</span>
+        <span class="nt">item_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$instance_id</span>
+
+<span class="nt">extraction_methods</span><span class="p">:</span>
+ <span class="c1"># Extract information from the meta file</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">extraction_keys</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">east</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gmd:eastBoundLongitude/gco:Decimal</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">west</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gmd:westBoundLongitude/gco:Decimal</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">north</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gmd:northBoundLatitude/gco:Decimal</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">south</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gmd:southBoundLatitude/gco:Decimal</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">start_datetime</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gml:beginPosition</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">end_datetime</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gml:beginPosition</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">supInfo</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gmd:supplementalInformation/gco:CharacterString</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EPSG</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/gmd:referenceSystemIdentifier/gmd:RS_Identifier/gmd:code/gco:CharacterString</span>
+      <span class="nt">namespaces</span><span class="p">:</span>
+        <span class="nt">gmd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://www.isotc211.org/2005/gmd</span>
+        <span class="nt">gml</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://www.opengis.net/gml</span>
+        <span class="nt">gco</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://www.isotc211.org/2005/gco</span>
+
+  <span class="c1"># Extract the variables from the supInfo field</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;ESA</span><span class="nv"> </span><span class="s">file</span><span class="nv"> </span><span class="s">name:</span><span class="nv"> </span><span class="s">(?P&lt;esa_file_name&gt;.*)&#39;</span>
+      <span class="nt">input_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">supInfo</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;Mean_Sun_Angle_Zenith:</span><span class="nv"> </span><span class="s">(?P&lt;Mean_Sun_Angle_Zenith&gt;.*)&#39;</span>
+      <span class="nt">input_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">supInfo</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;Mean_Sun_Angle_Azimuth:</span><span class="nv"> </span><span class="s">(?P&lt;Mean_Sun_Angle_Azimuth&gt;.*)&#39;</span>
+      <span class="nt">input_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">supInfo</span>
+
+  <span class="c1"># Extract the manifest path info</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;neodc\/sentinel_ard\/data\/sentinel_2\/(?P&lt;year&gt;\d{4})\/(?P&lt;month&gt;\d{2})\/(?P&lt;day&gt;\d{2})\/S2(?P&lt;satellite&gt;[abAB]{1}).*&#39;</span>
+      <span class="nt">input_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">uri</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lambda</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">function</span><span class="p">:</span> <span class="s">&#39;lambda</span><span class="nv"> </span><span class="s">satellite:</span><span class="nv"> </span><span class="s">satellite.lower()&#39;</span>
+      <span class="nt">input_args</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$satellite</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">satellite</span>
+
+  <span class="c1"># Generate path to the manifest file</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string_template</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">template</span><span class="p">:</span> <span class="s">&#39;/neodc/sentinel2{satellite}/data/L1C_MSI/{year}/{month}/{day}/{esa_file_name}.manifest&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">manifest_file</span>
+
+  <span class="c1"># Extract information from the manifest file</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">input_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">manifest_file</span>
+      <span class="nt">extraction_keys</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Instrument Family Name</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:platform/safe:instrument/safe:familyName</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Instrument Family Name Abbreviation</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:platform/safe:instrument/safe:familyName</span>
+          <span class="nt">attribute</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">abbreviation</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Platform Number</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:platform/safe:number</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NSSDC Identifier</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:platform/safe:nssdcIdentifier</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Start Relative Orbit Number</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:orbitReference/safe:relativeOrbitNumber</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Start Orbit Number</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:orbitReference/safe:orbitNumber</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ground Tracking Direction</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:orbitReference/safe:orbitNumber</span>
+          <span class="nt">attribute</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">groundTrackDirection</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Instrument Mode</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:platform/safe:instrument/safe:mode</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Coordinates</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//safe:frameSet/safe:footPrint/gml:coordinates</span>
+      <span class="nt">namespaces</span><span class="p">:</span>
+        <span class="nt">safe</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://www.esa.int/safe/sentinel/1.1</span>
+        <span class="nt">gml</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://www.opengis.net/gml</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;(?P&lt;path_root&gt;.+?)_vmsk_sharp_rad_srefdem_stdsref_meta\.&#39;</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lambda</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">function</span><span class="p">:</span> <span class="s">&#39;lambda</span><span class="nv"> </span><span class="s">coords_string:</span><span class="nv"> </span><span class="s">[[float(i),</span><span class="nv"> </span><span class="s">float(k)]for</span><span class="nv"> </span><span class="s">i,k</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">zip(coords_string.strip().split()[1::2],</span><span class="nv"> </span><span class="s">coords_string.strip().split()[0::2])]&#39;</span>
+      <span class="nt">input_args</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$Coordinates</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coords</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">geometry_polygon</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">coordinates_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coords</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">geometry_to_bbox</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">polygon</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string_template</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">template</span><span class="p">:</span> <span class="s">&#39;{esa_file_name}.SAFE/MTD_MSIL1C.xml&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">inner_file</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string_template</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">template</span><span class="p">:</span> <span class="s">&#39;/neodc/sentinel2{satellite}/data/L1C_MSI/{year}/{month}/{day}/{esa_file_name}.zip&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">zip_file</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">open_zip</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">zip_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$zip_file</span>
+      <span class="nt">inner_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$inner_file</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">esa_product</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">input_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">esa_product</span>
+      <span class="nt">extraction_keys</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Cloud Coverage Assessment</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//psd-14:Quality_Indicators_Info/Cloud_Coverage_Assessment</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Product Type</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//psd-14:General_Info/Product_Info/PRODUCT_TYPE</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Datatake Type</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.//psd-14:General_Info/Product_Info/Datatake/DATATAKE_TYPE</span>
+      <span class="nt">namespaces</span><span class="p">:</span>
+        <span class="nt">psd-14</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://psd-14.sentinel2.eo.esa.int/PSD/User_Product_Level-1C.xsd</span>
+
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string_template</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">template</span><span class="p">:</span> <span class="s">&#39;{path_root}.*.tif&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data_regex</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string_template</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">template</span><span class="p">:</span> <span class="s">&#39;{path_root}.*_thumbnail.jpg&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thumbnail_regex</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string_template</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">template</span><span class="p">:</span> <span class="s">&#39;{path_root}.*_meta.xml&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata_regex</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">elasticsearch_assets</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">search_field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">path</span>
+      <span class="nt">regex_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data_regex</span>
+      <span class="nt">fields</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">size</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">location</span>
+      <span class="nt">extraction_methods</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+          <span class="nt">inputs</span><span class="p">:</span>
+            <span class="nt">defaults</span><span class="p">:</span>
+              <span class="nt">roles</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;data&quot;</span><span class="p p-Indicator">]</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">elasticsearch_assets</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">search_field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">path</span>
+      <span class="nt">regex_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thumbnail_regex</span>
+      <span class="nt">fields</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">size</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">location</span>
+      <span class="nt">extraction_methods</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+          <span class="nt">inputs</span><span class="p">:</span>
+            <span class="nt">defaults</span><span class="p">:</span>
+              <span class="nt">roles</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;thumbnail&quot;</span><span class="p p-Indicator">]</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">elasticsearch_assets</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">search_field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">path</span>
+      <span class="nt">regex_term</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata_regex</span>
+      <span class="nt">fields</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">size</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">location</span>
+      <span class="nt">extraction_methods</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+          <span class="nt">inputs</span><span class="p">:</span>
+            <span class="nt">defaults</span><span class="p">:</span>
+              <span class="nt">roles</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;metadata&quot;</span><span class="p p-Indicator">]</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rename_assets</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">rename</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cog</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_stdsref.tif&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cloud</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_clouds.tif&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cloud_probability</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_clouds_prob.tif&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">topographic_shadow</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_toposhad.tif&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_meta.xml&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thumbnail</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_thumbnail.jpg&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">saturated_pixels</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_sat.tif&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">valid_pixels</span>
+          <span class="nt">regex</span><span class="p">:</span> <span class="s">&#39;.*_valid.tif&#39;</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data_regex</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lambda</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">function</span><span class="p">:</span> <span class="s">&#39;lambda</span><span class="nv"> </span><span class="s">assets:</span><span class="nv"> </span><span class="s">{asset_key:</span><span class="nv"> </span><span class="s">asset_value</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">{&quot;href&quot;:</span><span class="nv"> </span><span class="s">&quot;https://dap.ceda.ac.uk&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">asset_value[&quot;href&quot;]}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">asset_key,</span><span class="nv"> </span><span class="s">asset_value</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">sorted(assets.items())}&#39;</span>
+      <span class="nt">input_args</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$assets</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">assets</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lambda</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">function</span><span class="p">:</span> <span class="s">&#39;lambda</span><span class="nv"> </span><span class="s">path_root:</span><span class="nv"> </span><span class="s">path_root.replace(&quot;/badc/sentinel1b/data&quot;,</span><span class="nv"> </span><span class="s">&quot;&quot;).replace(&quot;/badc/sentinel1a/data&quot;,</span><span class="nv"> </span><span class="s">&quot;&quot;).strip(&quot;/&quot;).replace(&quot;/&quot;,</span><span class="nv"> </span><span class="s">&quot;.&quot;)&#39;</span>
+      <span class="nt">input_args</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$path_root</span>
+      <span class="nt">output_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">instance_id</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">iso_date</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">date_keys</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">start_datetime</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">end_datetime</span>
+      <span class="nt">formats</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="s">&#39;%Y-%m-%dT%H%M%SZ&#39;</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">datetime_bound_to_centroid</span>
+
+  <span class="c1"># Clean up unneeded terms</span>
+  <span class="p p-Indicator">-</span> <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">remove</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">keys</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">supInfo</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">year</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">month</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">day</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">manifest_file</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">west</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">south</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">east</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">north</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path_root</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">data_regex</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">thumbnail_regex</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">metadata_regex</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Coordinates</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">coords</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">satellite</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">zip_file</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">inner_file</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">esa_product</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">uri</span>
+
+<span class="nt">member_of</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">recipes/collection/sentinel2_ARD.yaml</span>
+</pre></div>
+</div>
+<p>The “extraction_methods” are the workflow. In the example shows the xml extaction method being used to extract some facets
+from a meta data file, then this information is then manipulated by several different extaction methods including retrieving
+a list of assets from CEDA’s elasticsearch index.</p>
+<p>The extraction methods can also be used for collection generation but typically this will be aggregation of their items.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../recipes/building_a_workflow.html" class="btn btn-neutral float-left" title="Building an Recipe" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../api/stac_generator/stac_generator.html" class="btn btn-neutral float-right" title="STAC Generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Richard Smith.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
